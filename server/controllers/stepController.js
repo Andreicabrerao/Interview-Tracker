@@ -94,10 +94,11 @@ stepController.editStep = (req, res, next) => {
   step_type = $2, 
   contact_name = $3, 
   contact_role = $4, 
-  contract = $5, 
+  contact = $5, 
   notes = $6
   WHERE id = $7
   `;
+  console.log(req.body);
   const queryVals = [
     date,
     step_type,

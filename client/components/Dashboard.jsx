@@ -15,11 +15,9 @@ const Dashboard = () => {
   console.log('context user', context.user.id);
 
   const fetchApplications = async () => {
-
     const resp = await fetch(`/user/${context.user.id}/application`, {
-      method: "GET",
-      headers: { "content-type": "application/JSON" },
-
+      method: 'GET',
+      headers: { 'content-type': 'application/JSON' },
     });
     const data = await resp.json();
     setTracker(data);
@@ -33,9 +31,8 @@ const Dashboard = () => {
 
   //Delete application from the DB
   const removeApplications = (id) => {
-
     fetch(`/user/${context.user.id}/application/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
 
       headers: {
         'content-type': 'application/JSON',
@@ -52,32 +49,36 @@ const Dashboard = () => {
   //Modify is for Edit, Delete, Add step functionality
   const renderHeader = () => {
     let headerElement = [
-
       // "id",
-      "Company",
-      "Title",
-      "Location",
-      "Found by",
-      "Applied via",
-      "Date applied",
-      "Notes",
-      "Status",
-      "Modify",
-
+      'Company',
+      'Title',
+      'Location',
+      'Found by',
+      'Applied via',
+      'Date applied',
+      'Notes',
+      'Status',
+      'Modify',
     ];
 
     //now we will map over these values and output as th
     return headerElement.map((key, index) => {
-      if(key === "Found by" || key ==="Applied via" || key==="Date applied" || key==="Notes") {
-        return <th key={index} className="low-priority-col">{key}</th>
-      }
-      else return <th key={index}>{key}</th>;
+      if (
+        key === 'Found by' ||
+        key === 'Applied via' ||
+        key === 'Date applied' ||
+        key === 'Notes'
+      ) {
+        return (
+          <th key={index} className="low-priority-col">
+            {key}
+          </th>
+        );
+      } else return <th key={index}>{key}</th>;
     });
   };
 
-
   const changeRoute = (e) => {
-    
     const id = e.target.id;
     let path = `/application/${id}/step`;
 
@@ -85,7 +86,6 @@ const Dashboard = () => {
   };
 
   const renderBody = () => {
-
     return (
       tracker &&
       tracker.map(
@@ -112,8 +112,13 @@ const Dashboard = () => {
               <td>{location}</td>
               <td className="low-priority-col">{found_by}</td>
               <td className="low-priority-col">{how_applied}</td>
-              <td className="low-priority-col" id="date-column">{date_applied}</td>
-              <td className="low-priority-col" id="notes-column">{notes}</td>
+              <td className="low-priority-col" id="date-column">
+                {new Date(date_applied).toLocaleDateString('en-US')}
+              </td>
+
+              <td className="low-priority-col" id="notes-column">
+                {notes}
+              </td>
               <td>{app_status}</td>
               <td className="operation">
                 <button
@@ -132,17 +137,17 @@ const Dashboard = () => {
                 <Link
                   to={{
                     pathname: `/application/${id}/step`,
-                    state: { appId: id }
+                    state: { appId: id },
                   }}
                 >
-                  <button src="step" className="editStep" 
+                  <button
+                    src="step"
+                    className="editStep"
                     // onClick={changeRoute} id={id}
-                    >
-
-                  Add step
-                </button>
+                  >
+                    Add step
+                  </button>
                 </Link>
-                
               </td>
             </tr>
           );
@@ -154,29 +159,27 @@ const Dashboard = () => {
   return (
     <>
       <h2 id="title">Applications Dashboard</h2>
-      <div className="tableContainer"> 
-
-      {context.user.id ? 
-      (<div>
-      <table id="tracker">
-        <thead>
-          <tr>{renderHeader()}</tr>
-        </thead>
-        <tbody>{renderBody()}</tbody>
-      </table>
+      <div className="tableContainer">
+        {context.user.id ? (
+          <div>
+            <table id="tracker">
+              <thead>
+                <tr>{renderHeader()}</tr>
+              </thead>
+              <tbody>{renderBody()}</tbody>
+            </table>
             <button onClick={() => history.goBack()}>Sign out</button>
 
-            <button onClick={() => setShowModal({ action: "add", id: null })}>
-                Add new application
-              </button>
-              </div>
-      ) : (
-          <p>Login first <Link to="/">here</Link></p>
-      )}
-      </div>  
-
-        
-
+            <button onClick={() => setShowModal({ action: 'add', id: null })}>
+              Add new application
+            </button>
+          </div>
+        ) : (
+          <p>
+            Login first <Link to="/">here</Link>
+          </p>
+        )}
+      </div>
 
       {showModal.action ? (
         <Modal
@@ -186,9 +189,7 @@ const Dashboard = () => {
           currentApp={showModal.action === 'edit' ? tracker[showModal.id] : {}}
         />
       ) : (
-
         <p></p>
-
       )}
     </>
   );
