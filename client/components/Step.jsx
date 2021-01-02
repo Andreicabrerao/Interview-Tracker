@@ -1,15 +1,7 @@
-<<<<<<< HEAD
-
-import React from "react";
-import { useState, useEffect, useContext } from "react";
-import { Link, useHistory, useLocation, useParams } from "react-router-dom";
-import ModalStep from "./ModalStep.jsx";
-=======
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import ModalStep from './ModalStep.jsx';
->>>>>>> 001de81d8db7275f0b581c1eda55ab3777e76e82
 import { UserContext } from '../App.jsx';
 
 const Steps = () => {
