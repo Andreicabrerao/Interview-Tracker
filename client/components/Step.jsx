@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import ModalStep from "./ModalStep.jsx";
 import { UserContext } from '../App.jsx';
 
